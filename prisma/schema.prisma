@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  name String
+  email String
+  password String
+  avatar_url String
+  created_at DateTime @default(now())
+
+  avaliations Avaliation[]
+
+  likes Like[]
+
+  @@map("users")
+}
+
+model Game {
+  id String @id @default(uuid())
+  name String
+  development String
+  cover_url String
+  released_at DateTime
+  created_at DateTime @default(now())
+
+  avaliations Avaliation[]
+
+  @@map("games")
+}
+
+model Avaliation {
+  id String @id @default(uuid())
+  score Int
+  created_at DateTime @default(now())
+
+  likes Like[]
+
+  user User @relation(fields: [user_id], references: [id])
+  user_id String
+
+  game Game @relation(fields: [game_id], references: [id])
+  game_id String
+
+  @@map("avaliations")
+}
+
+model Like {
+  id String @id @default(uuid())
+  created_at DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
+  user_id String
+
+  avaliation Avaliation @relation(fields: [avaliation_id], references: [id])
+  avaliation_id String
+
+  @@map("likes")
+}
