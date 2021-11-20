@@ -20,7 +20,7 @@ model User {
   created_at DateTime @default(now())
 
   avaliations Avaliation[]
-  
+
   games Game[]
 
   likes Like[]
@@ -37,8 +37,8 @@ model Game {
 
   avaliations Avaliation[]
 
-  user User @relation(fields: [development], references: [id])
-  development String
+  user User @relation(fields: [developer], references: [id])
+  developer String
 
   @@map("games")
 }
