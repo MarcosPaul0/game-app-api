@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { User } from '../models/User';
 import { CreateUserService } from '../services/CreateUserService';
 
 export class CreateUserController {
@@ -7,8 +8,9 @@ export class CreateUserController {
       name,
       email,
       password,
+      is_developer,
       avatar_url
-    } = req.body;
+    }: User = req.body;
 
     const createUserService = new CreateUserService();
 
@@ -16,9 +18,10 @@ export class CreateUserController {
       name,
       email,
       password,
+      is_developer,
       avatar_url
     })
 
-    return res.status(200).json({});
+    return res.status(200).json(user);
   }
 }

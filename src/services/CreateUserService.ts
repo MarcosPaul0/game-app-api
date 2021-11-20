@@ -7,11 +7,12 @@ interface IRequestCreateUser {
   name: string;
   email: string;
   password: string;
-  avatar_url: string;
+  avatar_url?: string;
+  is_developer?: boolean;
 }
 
 export class CreateUserService {
-  async execute({name, email, password, avatar_url = '#'}: IRequestCreateUser): Promise<User> {
+  async execute({name, email, password, avatar_url, is_developer}: IRequestCreateUser): Promise<User> {
     const user = await prismaClient.user.findFirst({
       where: { email }
     });
@@ -24,7 +25,8 @@ export class CreateUserService {
           name,
           email,
           password: passwordHash,
-          avatar_url
+          avatar_url,
+          is_developer
         }
       });
 
