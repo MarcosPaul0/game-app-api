@@ -19,7 +19,7 @@ model User {
   is_developer Boolean @default(false)
   created_at DateTime @default(now())
 
-  avaliations Avaliation[]
+  assessments Assessment[]
 
   games Game[]
 
@@ -35,7 +35,7 @@ model Game {
   released_at DateTime
   created_at DateTime @default(now())
 
-  avaliations Avaliation[]
+  assessments Assessment[]
 
   user User @relation(fields: [developer], references: [id])
   developer String
@@ -43,7 +43,7 @@ model Game {
   @@map("games")
 }
 
-model Avaliation {
+model Assessment {
   id String @id @default(uuid())
   score Int
   created_at DateTime @default(now())
@@ -56,7 +56,7 @@ model Avaliation {
   game Game @relation(fields: [game_id], references: [id])
   game_id String
 
-  @@map("avaliations")
+  @@map("assessments")
 }
 
 model Like {
@@ -66,8 +66,8 @@ model Like {
   user User @relation(fields: [user_id], references: [id])
   user_id String
 
-  avaliation Avaliation @relation(fields: [avaliation_id], references: [id])
-  avaliation_id String
+  assessments Assessment @relation(fields: [assessment_id], references: [id])
+  assessment_id String
 
   @@map("likes")
 }
