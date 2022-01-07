@@ -2,6 +2,8 @@ import prismaClient from '../prisma';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { AppError } from '../errors/AppError';
+import { GenerateTokenProvider } from '../providers/GenerateTokenProvider';
+import { GenerateRefreshTokenProvider } from '../providers/GenerateRefreshTokenProvider';
 
 interface IAuthenticateRequest {
   email: string;
@@ -18,19 +20,22 @@ export class AuthenticateUserService {
       throw new AppError('Email/password incorrect!');
     }
 
-    const passwordMatch = await compare(password, user.password); //recebido, com o já registrado
+    const passwordMatch = await compare(password, user.password); //recebido, já registrado
 
     if (!passwordMatch) {
       throw new AppError('Email/password incorrect!');
     }
 
-    const token = sign({
-      email: user.email
-    }, process.env.TOKEN_SECRET_PRIVATE_KEY, {
-      subject: user.id,
-      expiresIn: '1d'
-    })
+    const token = await new GenerateTokenProvider().execute({
+      user_id: user.id,
+      email: email
+    });
 
-    return token
+    const refreshToken = await new GenerateRefreshTokenProvider().execute({
+      user_id: user.id,
+      email: email
+    });
+
+    return { token, refreshToken };
   }
 }

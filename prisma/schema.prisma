@@ -13,19 +13,29 @@ datasource db {
 model User {
   id String @id @default(uuid())
   name String
-  email String
+  email String @unique()
   password String
   avatar_url String @default("")
   is_developer Boolean @default(false)
   created_at DateTime @default(now())
 
+  refresh_token RefreshToken?
   assessments Assessment[]
-
   games Game[]
-
   likes Like[]
 
   @@map("users")
+}
+
+model RefreshToken {
+  id String @id @default(uuid())
+  email String @unique()
+  expires_in Int
+
+  user User @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@map("refresh_token")
 }
 
 model Game {
@@ -35,12 +45,35 @@ model Game {
   released_at DateTime
   created_at DateTime @default(now())
 
-  assessments Assessment[]
-
   user User @relation(fields: [developer], references: [id])
   developer String
 
+  assessments Assessment[]
+  game_is_category GameIsCategory[]
+
   @@map("games")
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String
+
+  game_is_category GameIsCategory[]
+  
+  @@map("category")
+}
+
+model GameIsCategory {
+  id String @id @default(uuid())
+
+  game Game @relation(fields: [game_id], references: [id])
+  game_id String
+
+  category Category @relation(fields: [category_id], references: [id])
+  category_id String
+
+  @@unique([game_id, category_id])
+  @@map("game_is_category")
 }
 
 model Assessment {
@@ -48,14 +81,15 @@ model Assessment {
   score Int
   created_at DateTime @default(now())
 
-  likes Like[]
-
   user User @relation(fields: [user_id], references: [id])
-  user_id String
+  user_id String 
 
   game Game @relation(fields: [game_id], references: [id])
   game_id String
 
+  likes Like[]
+
+  @@unique([user_id, game_id])
   @@map("assessments")
 }
 
@@ -69,5 +103,6 @@ model Like {
   assessments Assessment @relation(fields: [assessment_id], references: [id])
   assessment_id String
 
+  @@unique([user_id, assessment_id])
   @@map("likes")
 }

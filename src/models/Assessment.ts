@@ -1,4 +1,4 @@
-export interface Avaliation {
+export interface Assessment {
   id: string;
   score: number;
   user_id: string;

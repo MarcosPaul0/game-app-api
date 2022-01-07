@@ -15,12 +15,12 @@ export function ensureAuthenticated(req: Request, res: Response, next: NextFunct
   const token = authToken.split(' ')[1];
 
   try {
-    const { sub } = verify(token, process.env.TOKEN_SECRET_PRIVATE_KEY) as IPayload;
+    const { sub } = verify(token, process.env.TOKEN_SECRET_KEY) as IPayload;
 
     req.user_id = sub;
 
     next();
   } catch(err) {
-    return res.status(401).json({ message: err.message});
+    return res.status(401).json({ message: 'Invalid token!'});
   }
 }
