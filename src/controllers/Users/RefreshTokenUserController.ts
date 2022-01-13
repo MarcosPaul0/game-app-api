@@ -1,5 +1,5 @@
 import { Request, Response} from 'express';
-import { RefreshTokenUserService } from '../services/RefreshTokenUserService';
+import { RefreshTokenUserService } from '../../services/Users/RefreshTokenUserService';
 
 export class RefreshTokenUserController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -9,6 +9,6 @@ export class RefreshTokenUserController {
 
     const token = await refreshTokenUserService.execute(refresh_token);
 
-    return res.json({ token });
+    return res.json(token);
   }
 }

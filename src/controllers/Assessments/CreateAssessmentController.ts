@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CreateAssessmentService } from '../services/CreateAssessmentService';
+import { CreateAssessmentService } from '../../services/Assessments/CreateAssessmentService';
 
 export class CreateAssessmentController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -18,6 +18,6 @@ export class CreateAssessmentController {
       score
     });
 
-    return res.status(200).json({ assessment });
+    return res.status(200).json(assessment);
   }
 }

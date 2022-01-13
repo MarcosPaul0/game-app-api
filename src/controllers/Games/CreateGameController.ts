@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Game } from '../models/Game';
-import { CreateGameService } from '../services/CreateGameService';
+import { Game } from '../../models/Game';
+import { CreateGameService } from '../../services/Games/CreateGameService';
 
 export class CreateGAmeController {
   async handle(req: Request, res: Response): Promise<Response> {

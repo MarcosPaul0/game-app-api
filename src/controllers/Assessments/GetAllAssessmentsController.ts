@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { GetAllAssessmentsService } from '../services/GetAllAssessmentsService';
+import { GetAllAssessmentsService } from '../../services/Assessments/GetAllAssessmentsService';
 
 export class GetAllAssessmentsController {
   async handle(req: Request, res: Response): Promise<Response> {
@@ -9,6 +9,6 @@ export class GetAllAssessmentsController {
 
     const allAssessment = await getAllAssessmentsService.execute(user_id);
 
-    return res.json({ allAssessment });
+    return res.json(allAssessment);
   }
 }

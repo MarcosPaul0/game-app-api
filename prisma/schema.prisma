@@ -31,6 +31,7 @@ model RefreshToken {
   id String @id @default(uuid())
   email String @unique()
   expires_in Int
+  is_developer Boolean
 
   user User @relation(fields: [user_id], references: [id])
   user_id String

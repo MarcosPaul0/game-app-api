@@ -1,9 +1,9 @@
 import Router from 'express';
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
-import { CreateAssessmentController } from '../controllers/CreateAssessmentController';
-import { List10AssessmentController } from '../controllers/List10AssessmentController';
-import { GetAllAssessmentsController } from '../controllers/GetAllAssessmentsController';
+import { CreateAssessmentController } from '../controllers/Assessments/CreateAssessmentController';
+import { List10AssessmentController } from '../controllers/Assessments/List10AssessmentController';
+import { GetAllAssessmentsController } from '../controllers/Assessments/GetAllAssessmentsController';
 
 export const assessmentRouter = Router();
 

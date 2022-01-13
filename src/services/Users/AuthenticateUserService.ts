@@ -1,9 +1,8 @@
-import prismaClient from '../prisma';
+import prismaClient from '../../prisma';
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
-import { AppError } from '../errors/AppError';
-import { GenerateTokenProvider } from '../providers/GenerateTokenProvider';
-import { GenerateRefreshTokenProvider } from '../providers/GenerateRefreshTokenProvider';
+import { AppError } from '../../errors/AppError';
+import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
+import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
 
 interface IAuthenticateRequest {
   email: string;
@@ -28,14 +27,25 @@ export class AuthenticateUserService {
 
     const token = await new GenerateTokenProvider().execute({
       user_id: user.id,
-      email: email
+      email,
+      is_developer: user.is_developer
     });
 
     const refreshToken = await new GenerateRefreshTokenProvider().execute({
       user_id: user.id,
-      email: email
+      email: email,
+      is_developer: user.is_developer
     });
 
-    return { token, refreshToken };
+    return { 
+      token, 
+      refreshToken,
+      user: {
+        name: user.name,
+        email: user.email,
+        avatar_url: user.avatar_url,
+        is_developer: user.is_developer
+      }
+    };
   }
 }

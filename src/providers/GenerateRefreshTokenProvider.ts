@@ -5,10 +5,11 @@ import prismaClient from "../prisma";
 interface GenerateRefreshTokenRequest {
   user_id: string;
   email: string;
+  is_developer: boolean;
 }
 
 export class GenerateRefreshTokenProvider {
-  async execute({ user_id, email }: GenerateRefreshTokenRequest): Promise<RefreshToken> {
+  async execute({ user_id, email, is_developer }: GenerateRefreshTokenRequest): Promise<RefreshToken> {
     await prismaClient.refreshToken.deleteMany({
       where: {
         user_id: user_id
@@ -21,6 +22,7 @@ export class GenerateRefreshTokenProvider {
       data: {
         user_id,
         email,
+        is_developer,
         expires_in
       }
     });

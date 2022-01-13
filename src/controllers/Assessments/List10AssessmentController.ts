@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { List10AssessmentService } from '../services/List10AssessmentService';
+import { List10AssessmentService } from '../../services/Assessments/List10AssessmentService';
 
 export class List10AssessmentController {
   async handle(req: Request, res: Response): Promise<Response>{
@@ -9,6 +9,6 @@ export class List10AssessmentController {
 
     const assessmentList = list10AssessmentService.execute(user_id);
 
-    return res.json({ assessmentList });
+    return res.json(assessmentList);
   }
 }

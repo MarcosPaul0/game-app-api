@@ -1,7 +1,7 @@
-import prismaClient from '../prisma';
+import prismaClient from '../../prisma';
 import { hash } from 'bcryptjs';
-import { User } from '../models/User';
-import { AppError } from '../errors/AppError'
+import { User } from '../../models/User';
+import { AppError } from '../../errors/AppError'
 
 interface IRequestCreateUser {
   name: string;

@@ -1,9 +1,9 @@
-import { AppError } from '../errors/AppError';
-import prismaClient from '../prisma';
+import { AppError } from '../../errors/AppError';
+import prismaClient from '../../prisma';
 import dayjs from 'dayjs';
-import { GenerateTokenProvider } from '../providers/GenerateTokenProvider';
-import { GenerateRefreshTokenProvider } from '../providers/GenerateRefreshTokenProvider';
-import { RefreshToken } from '../models/RefreshToken';
+import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
+import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
+import { RefreshToken } from '../../models/RefreshToken';
 
 interface RefreshTokenResponse {
   token: string;
@@ -24,7 +24,8 @@ export class RefreshTokenUserService {
 
     const token = await new GenerateTokenProvider().execute({
       user_id: refreshToken.user_id,
-      email: refreshToken.email
+      email: refreshToken.email,
+      is_developer: refreshToken.is_developer
     });
     
     const refreshTokenExpired = dayjs().isAfter(dayjs.unix(refreshToken.expires_in));
@@ -32,7 +33,8 @@ export class RefreshTokenUserService {
     if(refreshTokenExpired) {
       const newRefreshToken = await new GenerateRefreshTokenProvider().execute({
         user_id: refreshToken.user_id,
-        email: refreshToken.email
+        email: refreshToken.email,
+        is_developer: refreshToken.is_developer
       });
 
       return { 

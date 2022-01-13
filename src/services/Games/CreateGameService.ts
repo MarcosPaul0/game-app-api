@@ -1,6 +1,6 @@
-import { AppError } from '../errors/AppError';
-import { Game } from '../models/Game';
-import prismaClient from '../prisma';
+import { AppError } from '../../errors/AppError';
+import { Game } from '../../models/Game';
+import prismaClient from '../../prisma';
 
 interface IRequestCreateGame {
   name: string;

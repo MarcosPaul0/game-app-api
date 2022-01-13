@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { RefreshTokenUserController } from '../controllers/RefreshTokenUserController';
+import { RefreshTokenUserController } from '../controllers/Users/RefreshTokenUserController';
 
 export const refreshTokenRouter = Router();
 

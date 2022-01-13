@@ -1,6 +1,6 @@
-import { AppError } from "../errors/AppError";
-import { Assessment } from "../models/Assessment";
-import prismaClient from "../prisma";
+import { AppError } from "../../errors/AppError";
+import { Assessment } from "../../models/Assessment";
+import prismaClient from "../../prisma";
 
 export class GetAllAssessmentsService {
   async execute(user_id: string): Promise<Assessment[]> {
