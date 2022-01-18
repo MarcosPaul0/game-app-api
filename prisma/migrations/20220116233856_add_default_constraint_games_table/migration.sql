@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "games" ALTER COLUMN "released_at" SET DEFAULT CURRENT_TIMESTAMP;

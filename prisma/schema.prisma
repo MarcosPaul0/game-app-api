@@ -43,7 +43,7 @@ model Game {
   id String @id @default(uuid())
   name String
   cover_url String @default("")
-  released_at DateTime
+  released_at DateTime @default(now())
   created_at DateTime @default(now())
 
   user User @relation(fields: [developer], references: [id])

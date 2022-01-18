@@ -1,3 +1,3 @@
 import Router from 'express';
 
-export const likesRouter = Router();
+export const likeRouter = Router();

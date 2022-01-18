@@ -5,12 +5,11 @@ import prismaClient from '../../prisma';
 interface IRequestCreateGame {
   name: string;
   developer: string;
-  released_at: Date;
   cover_url?: string;
 }
 
 export class CreateGameService {
-  async execute({ name, developer, released_at, cover_url }: IRequestCreateGame): Promise<Game> {
+  async execute({ name, developer, cover_url }: IRequestCreateGame): Promise<Game> {
     const game = await prismaClient.game.findFirst({
       where: {
         name,
@@ -26,7 +25,6 @@ export class CreateGameService {
       data: {
         name,
         developer,
-        released_at,
         cover_url
       }
     });

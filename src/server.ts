@@ -10,6 +10,8 @@ app.use(express.json());
 
 app.use(cors());
 
+app.use(express.static(__dirname + '/tmp'));
+
 app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

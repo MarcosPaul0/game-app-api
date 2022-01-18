@@ -5,4 +5,4 @@ export const refreshTokenRouter = Router();
 
 const refreshTokenUserController = new RefreshTokenUserController();
 
-refreshTokenRouter.get('/', refreshTokenUserController.handle);
+refreshTokenRouter.post('/', refreshTokenUserController.handle);

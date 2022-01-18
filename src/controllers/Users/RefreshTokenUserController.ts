@@ -3,11 +3,11 @@ import { RefreshTokenUserService } from '../../services/Users/RefreshTokenUserSe
 
 export class RefreshTokenUserController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const refresh_token = req.headers.authorization;
+    const { refreshTokenId } = req.body;
 
     const refreshTokenUserService = new RefreshTokenUserService();
 
-    const token = await refreshTokenUserService.execute(refresh_token);
+    const token = await refreshTokenUserService.execute(refreshTokenId);
 
     return res.json(token);
   }

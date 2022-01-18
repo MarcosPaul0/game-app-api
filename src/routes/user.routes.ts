@@ -9,10 +9,10 @@ const createUserController = new CreateUserController();
 const getMyProfileController = new GetMyProfileController();
 const authenticateUserController = new AuthenticateUserController();
 
-export const usersRouter = Router();
+export const userRouter = Router();
 
-usersRouter.post('/register', createUserController.handle);
+userRouter.post('/register', createUserController.handle);
 
-usersRouter.post('/login', authenticateUserController.handle);
+userRouter.post('/login', authenticateUserController.handle);
 
-usersRouter.get('/me', ensureAuthenticated, getMyProfileController.handle);
+userRouter.get('/me', ensureAuthenticated, getMyProfileController.handle);

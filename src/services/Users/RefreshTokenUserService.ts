@@ -11,10 +11,10 @@ interface RefreshTokenResponse {
 }
 
 export class RefreshTokenUserService {
-  async execute(refresh_token: string): Promise<RefreshTokenResponse> {
+  async execute(refreshTokenId: string): Promise<RefreshTokenResponse> {
     const refreshToken = await prismaClient.refreshToken.findFirst({
       where: {
-        id: refresh_token
+        id: refreshTokenId
       }
     });
 

@@ -1,11 +1,29 @@
 import Router from 'express';
+import multer from 'multer';
+import uploadConfig from '../config/upload'; 
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 import { ensureIsDeveloper } from '../middlewares/ensureIsDeveloper';
 
-import { CreateGAmeController } from '../controllers/Games/CreateGameController';
+import { CreateGameController } from '../controllers/Games/CreateGameController';
+import { ListGamesByNameController } from '../controllers/Games/ListGamesByNameController';
+import { ListGamesByUserIdController } from '../controllers/Games/ListGamesByUserIdController';
 
-export const gamesRouter = Router();
+export const gameRouter = Router();
 
-const createGAmeController = new CreateGAmeController();
+const uploadGame = multer(uploadConfig.upload('./tmp/game'));
 
-gamesRouter.post('/create', ensureAuthenticated, ensureIsDeveloper, createGAmeController.handle);
+const createGameController = new CreateGameController();
+const listGamesByNameController = new ListGamesByNameController();
+const listGamesByUserIdController = new ListGamesByUserIdController();
+
+gameRouter.post(
+  '/create', 
+  ensureAuthenticated, 
+  ensureIsDeveloper, 
+  uploadGame.single('game'), 
+  createGameController.handle
+);
+
+gameRouter.get('/list', ensureAuthenticated, listGamesByNameController.handle);
+
+gameRouter.get('/myGames', ensureAuthenticated, listGamesByUserIdController.handle);
